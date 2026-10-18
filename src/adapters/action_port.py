@@ -1,0 +1,2 @@
+"""Action adapter interface."""
+

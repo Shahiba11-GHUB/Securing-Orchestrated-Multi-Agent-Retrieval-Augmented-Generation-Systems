@@ -1,0 +1,2 @@
+"""Regex-detector security adapter."""
+

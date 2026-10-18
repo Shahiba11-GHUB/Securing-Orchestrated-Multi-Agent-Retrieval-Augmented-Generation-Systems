@@ -1,0 +1,2 @@
+"""Keyword-detector security adapter."""
+

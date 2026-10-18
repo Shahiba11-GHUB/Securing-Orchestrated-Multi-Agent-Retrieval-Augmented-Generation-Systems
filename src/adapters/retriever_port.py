@@ -1,0 +1,2 @@
+"""Retriever adapter interface."""
+
