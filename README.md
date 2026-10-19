@@ -14,3 +14,5 @@ The initial orchestration contracts for cross-team integration are implemented i
 These are aligned with the current teammate branch interfaces:
 - `sameer/bipia-emailqa-dev` retrieval fixture + detector contract
 - `feature/security-defense` detector outputs (`is_suspicious`) via adapter normalization
+
+For security screening integration, the preferred adapter is now [layered_security_adapter.py](./src/adapters/layered_security_adapter.py), which wraps teammate [layered_detector.py](./security/layered_detector.py).
