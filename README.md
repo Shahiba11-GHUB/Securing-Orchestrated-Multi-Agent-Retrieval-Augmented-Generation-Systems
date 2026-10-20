@@ -31,3 +31,18 @@ Step 8 adds traceable hop-by-hop observability:
 - [event_logger.py](./src/messaging/event_logger.py): emits structured `TraceEvent` records and optional JSONL persistence.
 - [propagation_tracker.py](./src/messaging/propagation_tracker.py): reconstructs parent/child message lineage by `trace_id`.
 - [message_bus.py](./src/messaging/message_bus.py): now emits `message_sent` trace events for each hop with payload hash and decision metadata.
+
+## Workstream 1 attack harness
+
+Step 9 adds a scenario harness for clean vs attacked vs privilege-escalation runs:
+- [scenarios.py](./src/attack_harness/scenarios.py): canonical scenario definitions.
+- [injector.py](./src/attack_harness/injector.py): low-privilege escalation probe message generation.
+- [scenario_runner.py](./src/attack_harness/scenario_runner.py): execution pipeline over orchestrator flows.
+- [report.py](./src/attack_harness/report.py): deterministic aggregate summary fields.
+- [run_scenarios.py](./src/cli/run_scenarios.py): CLI entrypoint.
+
+Example:
+
+```bash
+python -m src.cli.run_scenarios --scenario all
+```
