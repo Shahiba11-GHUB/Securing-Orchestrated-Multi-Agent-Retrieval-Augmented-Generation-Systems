@@ -24,3 +24,10 @@ Step 7 adds explicit policy and privilege-escalation guardrails:
 - [privilege.py](./src/orchestrator/privilege.py): enforces low-to-high escalation checks so suspicious paths cannot reach high-privilege execution.
 
 The orchestrator action stage now applies both checks before final routing decisions.
+
+## Workstream 1 propagation tracking
+
+Step 8 adds traceable hop-by-hop observability:
+- [event_logger.py](./src/messaging/event_logger.py): emits structured `TraceEvent` records and optional JSONL persistence.
+- [propagation_tracker.py](./src/messaging/propagation_tracker.py): reconstructs parent/child message lineage by `trace_id`.
+- [message_bus.py](./src/messaging/message_bus.py): now emits `message_sent` trace events for each hop with payload hash and decision metadata.
