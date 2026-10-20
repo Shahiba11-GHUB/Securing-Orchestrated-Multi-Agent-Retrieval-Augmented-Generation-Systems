@@ -16,3 +16,11 @@ These are aligned with the current teammate branch interfaces:
 - `feature/security-defense` detector outputs (`is_suspicious`) via adapter normalization
 
 For security screening integration, the preferred adapter is now [layered_security_adapter.py](./src/adapters/layered_security_adapter.py), which wraps teammate [layered_detector.py](./security/layered_detector.py).
+
+## Workstream 1 policy and privilege controls
+
+Step 7 adds explicit policy and privilege-escalation guardrails:
+- [policy.py](./src/orchestrator/policy.py): consolidates detector verdicts into `allow` / `quarantine` / `block` policy actions.
+- [privilege.py](./src/orchestrator/privilege.py): enforces low-to-high escalation checks so suspicious paths cannot reach high-privilege execution.
+
+The orchestrator action stage now applies both checks before final routing decisions.

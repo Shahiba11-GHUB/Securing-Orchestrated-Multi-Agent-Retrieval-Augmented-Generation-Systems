@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from src.agents.base_agent import BaseAgent
 from src.contracts import AgentMessage, DocumentChunk, SecurityVerdict
+from src.orchestrator.policy import SecurityPolicy
+from src.orchestrator.privilege import PrivilegeEscalationGuard
 
 
 class ActionAgent(BaseAgent):
@@ -16,9 +18,13 @@ class ActionAgent(BaseAgent):
         role: str,
         privilege_level: int,
         next_agent_id: str,
+        policy: SecurityPolicy | None = None,
+        privilege_guard: PrivilegeEscalationGuard | None = None,
     ) -> None:
         super().__init__(agent_id=agent_id, role=role, privilege_level=privilege_level)
         self._next_agent_id = next_agent_id
+        self._policy = policy or SecurityPolicy()
+        self._privilege_guard = privilege_guard or PrivilegeEscalationGuard()
 
     def handle_message(self, message: AgentMessage) -> AgentMessage:
         payload = message.payload
@@ -41,29 +47,28 @@ class ActionAgent(BaseAgent):
         if len(chunks) != len(verdicts):
             raise ValueError("ActionAgent requires one verdict per input chunk.")
 
-        blocked_or_quarantined = [v for v in verdicts if v.action in {"block", "quarantine"}]
-        allowed = [v for v in verdicts if v.action == "allow"]
+        privilege_check = self._privilege_guard.check_transition(
+            message=message,
+            target_privilege=self.privilege_level,
+            verdicts=verdicts,
+        )
+        policy_decision = self._policy.evaluate(verdicts, privilege_check=privilege_check)
 
-        if blocked_or_quarantined:
-            status = "blocked"
-            summary = {
-                "status": status,
-                "query": query,
-                "case_id": case_id,
-                "allowed_chunks": len(allowed),
-                "blocked_or_quarantined_chunks": len(blocked_or_quarantined),
-                "actions": [v.action for v in verdicts],
-            }
-        else:
-            status = "allow"
-            summary = {
-                "status": status,
-                "query": query,
-                "case_id": case_id,
-                "allowed_chunks": len(allowed),
-                "blocked_or_quarantined_chunks": 0,
-                "actions": [v.action for v in verdicts],
-            }
+        status = "allow" if policy_decision.action == "allow" else "blocked"
+        summary = {
+            "status": status,
+            "policy_action": policy_decision.action,
+            "policy_reason": policy_decision.reason,
+            "query": query,
+            "case_id": case_id,
+            "allowed_chunks": policy_decision.allowed_chunks,
+            "blocked_or_quarantined_chunks": (
+                policy_decision.blocked_chunks + policy_decision.quarantined_chunks
+            ),
+            "actions": [v.action for v in verdicts],
+        }
+        if policy_decision.metadata:
+            summary["policy_metadata"] = dict(policy_decision.metadata)
 
         self.record_local_context({"event": "action_decision", **summary})
 
@@ -74,5 +79,9 @@ class ActionAgent(BaseAgent):
             parent_message_id=message.message_id,
             hop=message.hop + 1,
             scenario_id=message.scenario_id,
-            metadata={"route": f"{self.agent_id}->{self._next_agent_id}", "status": status},
+            metadata={
+                "route": f"{self.agent_id}->{self._next_agent_id}",
+                "status": status,
+                "policy_action": policy_decision.action,
+            },
         )
