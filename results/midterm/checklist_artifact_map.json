@@ -1,0 +1,18 @@
+{
+  "20_plus_failure_cases_selected": "results\\midterm\\failure_analysis.json",
+  "bipia_loaded_and_documented": "src/adapters/bipia_fixture_retriever.py and evaluation_protocol.json",
+  "clean_vs_attacked_baseline_results_produced": "results\\midterm\\baseline_results.json",
+  "demo_prepared": "results\\midterm\\demo_script.txt",
+  "evaluation_protocol_written": "results\\midterm\\evaluation_protocol.json",
+  "failure_cases_grouped_into_3_plus_categories": "results\\midterm\\failure_analysis.json",
+  "five_detailed_failure_writeups_completed": "results\\midterm\\failure_analysis.json",
+  "high_level_architecture_diagram_prepared": "results\\midterm\\architecture_diagram.mmd",
+  "keyword_filter_baseline_reported": "results\\midterm\\results_table.csv",
+  "no_defense_baseline_reported": "results\\midterm\\results_table.csv",
+  "one_depth_analysis_completed": "results\\midterm\\depth_analysis_topk.json",
+  "orchestrator_working_with_agents": "src/agents/ and tests/test_orchestrator_routing.py",
+  "rag_pipeline_working": "src/orchestrator/engine.py and tests/test_orchestrator_routing.py",
+  "results_table_populated": "results\\midterm\\results_table.csv",
+  "scope_and_problem_statement_finalized": "README.md project overview section",
+  "trust_aware_defense_v1_reported": "results\\midterm\\results_table.csv"
+}

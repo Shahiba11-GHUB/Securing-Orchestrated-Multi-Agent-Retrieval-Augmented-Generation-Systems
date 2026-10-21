@@ -1,0 +1,34 @@
+{
+  "baseline_results": [
+    {
+      "attacked_allowed": 20,
+      "attacked_blocked": 0,
+      "attacked_quarantine_actions": 0,
+      "attacked_total": 20,
+      "clean_allowed": 20,
+      "clean_blocked": 0,
+      "clean_total": 20,
+      "defense": "no-defense"
+    },
+    {
+      "attacked_allowed": 20,
+      "attacked_blocked": 0,
+      "attacked_quarantine_actions": 0,
+      "attacked_total": 20,
+      "clean_allowed": 20,
+      "clean_blocked": 0,
+      "clean_total": 20,
+      "defense": "keyword-filter"
+    },
+    {
+      "attacked_allowed": 7,
+      "attacked_blocked": 13,
+      "attacked_quarantine_actions": 0,
+      "attacked_total": 20,
+      "clean_allowed": 20,
+      "clean_blocked": 0,
+      "clean_total": 20,
+      "defense": "layered-v1"
+    }
+  ]
+}
