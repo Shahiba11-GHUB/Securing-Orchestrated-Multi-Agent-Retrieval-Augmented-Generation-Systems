@@ -1,0 +1,7 @@
+flowchart LR
+  U[User Query] --> O[Orchestrator]
+  O --> R[Retrieval Agent]
+  R --> S[Security Agent]
+  S --> A[Action Agent]
+  A --> O
+  S -->|verdicts| P[Policy + Privilege Guard]

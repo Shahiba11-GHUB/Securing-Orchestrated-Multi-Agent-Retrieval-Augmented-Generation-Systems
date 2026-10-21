@@ -246,7 +246,50 @@ It aligns with FR1.1–FR1.6 in [FunctionalRequirements.md](./FunctionalRequirem
 
 ---
 
-## Step 10 — Final pass for midterm readiness
+## Step 10 — Produce midterm reporting deliverables
+
+**FR coverage:** FR1.4, FR1.5, FR1.6 (reporting evidence)  
+**Goal:** produce the exact artifacts needed to satisfy the midterm reporting checklist.
+
+### Deliverables
+- Written evaluation protocol (fixed setup, metrics, seeds, and run conditions).
+- Baseline comparison outputs for:
+  - no defense
+  - keyword filter
+  - trust-aware/layered defense v1
+- Results table populated with real numeric values.
+- Failure analysis package:
+  - at least 20 selected cases
+  - at least 3 failure categories
+  - at least 5 detailed case writeups
+- One depth analysis:
+  - single-agent vs multi-agent, or
+  - isolated vs shared memory, or
+  - fallback: retrieval/top-k sensitivity.
+- Communication artifacts:
+  - high-level architecture diagram
+  - 3–5 minute demo script (one input, one success, one failure, what’s next).
+
+### Suggested implementation surface
+- Extend [src/attack_harness/report.py](./src/attack_harness/report.py) to emit per-case and aggregate summaries suitable for the results table.
+- Add reporting outputs under a dedicated results folder (for example, JSON/CSV artifacts consumed by the final writeup).
+- Add a concise protocol/results section in [README.md](./README.md) (or a dedicated midterm report document if requested).
+
+### Acceptance criteria
+- Each checklist item in [midterm_reporting_requirement.md](./midterm_reporting_requirement.md) has a concrete artifact reference.
+- Baseline comparisons are reproducible from CLI commands.
+- Depth-analysis result includes a clear conclusion paragraph backed by run outputs.
+
+### Validation
+- Re-run baseline commands and confirm deterministic identifiers/counts for the same seed.
+- Cross-check that reported table values match raw scenario output files.
+
+### Suggested commit message
+`Add midterm protocol results failure-analysis and demo artifacts`
+
+---
+
+## Step 11 — Final pass for midterm readiness
 
 **FR coverage:** FR1.1–FR1.6 complete baseline  
 **Goal:** ensure coherent docs/tests and integration handoff.
@@ -266,7 +309,7 @@ It aligns with FR1.1–FR1.6 in [FunctionalRequirements.md](./FunctionalRequirem
 
 - One step = one PR or one commit batch.
 - Keep each step small enough to review in <15 minutes.
-- Demo after Steps 3, 6, and 9.
+- Demo after Steps 3, 6, 9, and 10.
 
 ---
 

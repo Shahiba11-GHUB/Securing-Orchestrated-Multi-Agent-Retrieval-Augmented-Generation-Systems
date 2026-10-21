@@ -46,3 +46,21 @@ Example:
 ```bash
 python -m src.cli.run_scenarios --scenario all
 ```
+
+## Workstream 1 midterm reporting artifacts
+
+Generate reproducible midterm artifacts with:
+
+```bash
+python -m src.cli.generate_midterm_artifacts --output-dir results/midterm
+```
+
+Generated files:
+- `results/midterm/evaluation_protocol.json`
+- `results/midterm/baseline_results.json`
+- `results/midterm/results_table.csv`
+- `results/midterm/failure_analysis.json`
+- `results/midterm/depth_analysis_topk.json`
+- `results/midterm/architecture_diagram.mmd`
+- `results/midterm/demo_script.txt`
+- `results/midterm/checklist_artifact_map.json`

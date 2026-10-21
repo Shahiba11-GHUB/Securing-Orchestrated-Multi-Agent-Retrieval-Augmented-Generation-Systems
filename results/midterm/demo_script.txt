@@ -1,0 +1,5 @@
+Demo flow (3-5 minutes):
+1) Input: run clean case through layered defense and show allow path.
+2) Success: show extracted payment answer path remains allowed.
+3) Failure case: run attacked case and show quarantine/block decision.
+4) Next steps: calibrate detector thresholds and expand depth analysis.

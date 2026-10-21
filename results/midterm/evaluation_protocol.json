@@ -1,0 +1,16 @@
+{
+  "dataset_root": "BIPIA_EmailQA_20_Pairs",
+  "determinism_note": "Count metrics are deterministic for a fixed fixture and top_k.",
+  "run_conditions": {
+    "comparisons": [
+      "no-defense",
+      "keyword-filter",
+      "layered-v1"
+    ],
+    "scenarios": [
+      "clean",
+      "attacked"
+    ],
+    "top_k": 1
+  }
+}
